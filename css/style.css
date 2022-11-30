@@ -1,0 +1,28 @@
+.opciones {
+    margin: 20px 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+/* .form-control{
+	width: 100%;
+} */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-align: center;
+}
+.formulario {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border: 1px solid red;
+}
+
+.containerform {
+    width: 100%;
+    max-width: 400px;
+}
