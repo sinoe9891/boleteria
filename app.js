@@ -73,27 +73,49 @@ function guardarEvento() {
 }
 
 //Leer Datos Eventos
-var tabla = document.getElementById("tabla");
-db.collection(coleevento).orderBy("fechacreacion", "desc").onSnapshot((querySnapshot) => {
-	tabla.innerHTML = '';
-	contador = 1;
-	querySnapshot.forEach((doc) => {
-		var myDate = new Date(doc.data().fechacreacion);
-		var limite = new Date(doc.data().fechalimite);
-		console.log(myDate);
-		fecha = myDate.toLocaleString('es-HN');
-		fechalimite = limite.toLocaleString('es-HN');
-		tabla.innerHTML += `<tr>
+var tablaeventos = document.getElementById("tablaeventos");
+if (tablaeventos) {
+	db.collection(coleevento).orderBy("fechacreacion", "desc").onSnapshot((querySnapshot) => {
+		tablaeventos.innerHTML = '';
+		contador = 1;
+		querySnapshot.forEach((doc) => {
+			var myDate = new Date(doc.data().fechacreacion);
+			var limite = new Date(doc.data().fechalimite);
+			console.log(myDate);
+			fecha = myDate.toLocaleString('es-HN');
+			fechalimite = limite.toLocaleString('es-HN');
+			tablaeventos.innerHTML += `<tr>
 		<th scope="row">${contador++}</th>
 		<td>${doc.data().nombreevento}</td>
 		<td>${fecha}</td>
-		<td>${fechalimite}</td>
-		<td>
-			<button class="btn btn-danger" id="borrar" onclick="borrarevento('${doc.id}')">Borrar</button>
-			<button type="submit" class="btn btn-warning" name="idevento" id="editar" onclick="editarevento('${doc.id}')" value="${doc.id}">Editar</button></td>
-		</tr>`;
+		<td>${fechalimite}</td>`;
+		});
 	});
-});
+}
+
+var tabla = document.getElementById("tabla");
+if (tabla) {
+	db.collection(coleevento).orderBy("fechacreacion", "desc").onSnapshot((querySnapshot) => {
+		tabla.innerHTML = '';
+		contador = 1;
+		querySnapshot.forEach((doc) => {
+			var myDate = new Date(doc.data().fechacreacion);
+			var limite = new Date(doc.data().fechalimite);
+			console.log(myDate);
+			fecha = myDate.toLocaleString('es-HN');
+			fechalimite = limite.toLocaleString('es-HN');
+			tabla.innerHTML += `<tr>
+			<th scope="row">${contador++}</th>
+			<td>${doc.data().nombreevento}</td>
+			<td>${fecha}</td>
+			<td>${fechalimite}</td>
+			<td>
+				<button class="btn btn-danger" id="borrar" onclick="borrarevento('${doc.id}')">Borrar</button>
+				<button type="submit" class="btn btn-warning" name="idevento" id="editar" onclick="editarevento('${doc.id}')" value="${doc.id}">Editar</button></td>
+			</tr>`;
+		});
+	});
+}
 
 // Eventos Select Tipo Boleto con Condición
 var eventosactive = document.getElementById("eventosactive");
@@ -113,13 +135,10 @@ if (eventosactive) {
 
 // Generar Boletos
 function generarTipoBoleto() {
-	console.log("Guardar Evento");
 	var eventosactive = document.getElementById("eventosactive").value;
-
 	// Llamar datos del evento
 	db.collection(coleevento).where(firebase.firestore.FieldPath.documentId(), "==", eventosactive).onSnapshot((querySnapshot) => {
 		// db.collection(coleevento).where("tipodeboletoutilizado", "==", false).get().then((querySnapshot) => {
-		console.log("Entró");
 		eventosactive.innerHTML = '';
 		contador = 1;
 		querySnapshot.forEach((doc) => {
@@ -153,10 +172,17 @@ function generarTipoBoleto() {
 			}).catch(function (error) {
 				console.log("Error: ", docRef.id);
 			})
+
+			var updateEvent = db.collection(coleevento).doc(eventosactive);
+			return updateEvent.update({
+				tipodeboletoutilizado: true,
+			}).then(() => {
+				console.log("Document successfully updated!");
+			}).catch((error) => {
+				console.error("Error updating document: ", error);
+			});
 		});
-	}).catch((error) => {
-		console.log("Error getting documents: ", error);
-	});
+	})
 
 }
 

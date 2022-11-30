@@ -51,16 +51,11 @@ $timestap = time();
 					<th scope="col">Nombre del Evento</th>
 					<th scope="col">Fecha de Creación</th>
 					<th scope="col">Fecha de Vencimiento</th>
-					<th scope="col">Acciones</th>
 				</tr>
 			</thead>
-			<tbody id="tabla">
+			<tbody id="tablaeventos">
 				<tr>
-					<th scope="row">1</th>
-					<td>Mark</td>
-					<td>Otto</td>
-					<td>@mdo</td>
-					<td><button class="btn btn-info" onclick="guardarEvento()">Editar</button><button class="btn btn-info" onclick="guardarEvento()">Eliminar</button></td>
+					
 				</tr>
 			</tbody>
 		</table>
