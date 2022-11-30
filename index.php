@@ -29,6 +29,9 @@ $timestap = time();
 	<div class="container">
 		<div class="opciones">
 			<div class="botton">
+				<a href="index.php"><button>Ver Eventos</button></a>
+			</div>
+			<div class="botton">
 				<a href="crear-evento.php"><button>Crear Evento</button></a>
 			</div>
 			<div class="botton">

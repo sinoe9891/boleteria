@@ -7,6 +7,8 @@ $timestap = time();
 // $fecha = date("Y-m-d");
 // $timestamp = strtotime($fecha);
 // $fechacreado  = date("Y-m-d h:i:sa", $timestap)
+$idevento = $_POST['idevento'];
+
 ?>
 
 <head>
@@ -52,6 +54,7 @@ $timestap = time();
 							<option value="">Seleccionar Cliente</option>
 						</select>
 					</div>
+					<input type="hidden" id="identificadorevento" name="identificadorevento" value="<?php echo $idevento; ?>">
 					<div class="form-group">
 						<label class="form-check-label" for="">Nombre Evento</label>
 						<input type="text" class="form-control" name="nombreevento" id="nombreevento" placeholder="Nombre Evento">
@@ -101,7 +104,7 @@ $timestap = time();
 						<label class="form-check-label" for="">Descripción del Evento</label>
 						<input type="text" class="form-control" name="descripcionevento" id="descripcionevento" placeholder="Dirección Evento">
 					</div>
-					<button class="btn btn-info" onclick="guardarEvento()">Guardar</button>
+					<button class="btn btn-info"  id="actualizar" onclick="actualizar('<?php echo $idevento; ?>')">Guardar</button>
 				</div>
 			</div>
 		</div>

@@ -90,7 +90,7 @@ db.collection(coleevento).orderBy("fechacreacion", "desc").onSnapshot((querySnap
 		<td>${fechalimite}</td>
 		<td>
 			<button class="btn btn-danger" id="borrar" onclick="borrarevento('${doc.id}')">Borrar</button>
-			<button class="btn btn-warning" id="editar" onclick="editarevento('${doc.id}')">Editar</button></td>
+			<button type="submit" class="btn btn-warning" name="idevento" id="editar" onclick="editarevento('${doc.id}')" value="${doc.id}">Editar</button></td>
 		</tr>`;
 	});
 });
@@ -180,35 +180,78 @@ function borrarevento(id) {
 }
 
 // Editar datos
-var washingtonRef = db.collection(coleevento).doc(id);
+var idevento = document.getElementById("identificadorevento");
 
-// function editarevento(id) {
-// 	// Set the "capital" field of the city 'DC'
-// 	return washingtonRef.update({
-// 		nombreevento: nombreEvento,
-// 		fechacreacion: Date.now(),
-// 		nombrecliente: nombrecliente,
-// 		rtn: rtn,
-// 		direccioncliente: direccioncliente,
-// 		caicliente: caicliente,
-// 		fechalimite: fechalimite,
-// 		rangoinicial: rangoinicio,
-// 		rangofinal: rangofinal,
-// 		numfactura: rangoinicialfactura,
-// 		rangoinicialfactura: rangoinicialfactura,
-// 		rangofinalfactura: rangofinalfactura,
-// 		estado: estado,
-// 		direccionenvento: direccionenvento,
-// 		descripcionevento: descripcionevento,
-// 		portada: portada,
-// 		tipodeboletoutilizado: tipodeboletoutilizado
-// 	}).then(() => {
-// 		console.log("Document successfully updated!");
-// 	}).catch((error) => {
-// 		// The document probably doesn't exist.
-// 		console.error("Error updating document: ", error);
-// 	});
-// }
+if (idevento) {
+	console.log(idevento.value);
+	db.collection(coleevento).where(firebase.firestore.FieldPath.documentId(), "==", idevento.value).get().then((querySnapshot) => {
+		// db.collection(coleevento).where("tipodeboletoutilizado", "==", false).get().then((querySnapshot) => {
+		contador = 1;
+		querySnapshot.forEach((doc) => {
+			ideventoseleccionado = doc.id;
+			document.getElementById("nombreevento").value = doc.data().nombreevento;
+			document.getElementById("nombrecliente").value = doc.data().nombrecliente;
+			document.getElementById("rtn").value = doc.data().rtn;
+			document.getElementById("direccioncliente").value = doc.data().direccioncliente;
+			document.getElementById("caicliente").value = doc.data().caicliente;
+			document.getElementById("fechalimite").value = doc.data().fechalimite;
+			document.getElementById("rangoinicialfactura").value = doc.data().rangoinicialfactura;
+			document.getElementById("rangofinalfactura").value = doc.data().rangofinalfactura;
+			document.getElementById("rangoinicio").value = doc.data().rangoinicial;
+			document.getElementById("rangofinal").value = doc.data().rangofinal;
+			document.getElementById("estado").value = doc.data().estado;
+			document.getElementById("direccionenvento").value = doc.data().direccionenvento;
+			document.getElementById("descripcionevento").value = doc.data().descripcionevento;
+		});
+	}).catch((error) => {
+		console.log("Error getting documents: ", error);
+	});
+
+	function actualizar(id) {
+		console.log(id);
+		var nombreEvento = document.getElementById("nombreevento").value;
+		var nombrecliente = document.getElementById("nombrecliente").value;
+		var rtn = document.getElementById("rtn").value;
+		var direccioncliente = document.getElementById("direccioncliente").value;
+		var caicliente = document.getElementById("caicliente").value;
+		var fechalimite = document.getElementById("fechalimite").value;
+		var rangoinicio = document.getElementById("rangoinicio").value;
+		var rangofinal = document.getElementById("rangofinal").value;
+		var rangoinicialfactura = document.getElementById("rangoinicialfactura").value;
+		var rangofinalfactura = document.getElementById("rangofinalfactura").value;
+		var estado = document.getElementById("estado").value;
+		var direccionenvento = document.getElementById("direccionenvento").value;
+		var descripcionevento = document.getElementById("descripcionevento").value;
+		var portada = '';
+		// 	// Set the "capital" field of the city 'DC'
+		var updateEvent = db.collection(coleevento).doc(id);
+		return updateEvent.update({
+			nombreevento: nombreEvento,
+			// fechacreacion: Date.now(),
+			nombrecliente: nombrecliente,
+			rtn: rtn,
+			direccioncliente: direccioncliente,
+			caicliente: caicliente,
+			fechalimite: fechalimite,
+			rangoinicial: rangoinicio,
+			rangofinal: rangofinal,
+			numfactura: rangoinicialfactura,
+			rangoinicialfactura: rangoinicialfactura,
+			rangofinalfactura: rangofinalfactura,
+			estado: estado,
+			direccionenvento: direccionenvento,
+			descripcionevento: descripcionevento,
+			portada: portada,
+			// tipodeboletoutilizado: tipodeboletoutilizado
+		}).then(() => {
+			console.log("Document successfully updated!");
+		}).catch((error) => {
+			// The document probably doesn't exist.
+			console.error("Error updating document: ", error);
+		});
+	}
+}
+
 
 
 

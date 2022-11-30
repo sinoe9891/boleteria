@@ -29,6 +29,9 @@ $timestap = time();
 	<div class="container">
 		<div class="opciones">
 			<div class="botton">
+				<a href="index.php"><button>Ver Eventos</button></a>
+			</div>
+			<div class="botton">
 				<a href="crear-evento.php"><button>Crear Evento</button></a>
 			</div>
 			<div class="botton">
@@ -56,20 +59,22 @@ $timestap = time();
 		<div class="title">
 			<h3>Eventos</h3>
 		</div>
-		<table class="table">
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Nombre del Evento</th>
-					<th scope="col">Fecha de Creación</th>
-					<th scope="col">Fecha de Vencimiento</th>
-					<th scope="col">Acciones</th>
-				</tr>
-			</thead>
-			<tbody id="tabla">
+		<form action="editar-evento.php" method="post">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Nombre del Evento</th>
+						<th scope="col">Fecha de Creación</th>
+						<th scope="col">Fecha de Vencimiento</th>
+						<th scope="col">Acciones</th>
+					</tr>
+				</thead>
+				<tbody id="tabla">
 
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</form>
 	</div>
 	<script src="app.js"></script>
 </body>
